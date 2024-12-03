@@ -19,7 +19,7 @@ public interface UserService {
 
     UserResponseDTO update(String username, UpdateUserRequestDTO request);
 
-    void changePassword(String username, ChangePasswordRequestDTO request)
+    void changePassword(String username, ChangePasswordRequestDTO request);
 
     void delete(String username);
 }

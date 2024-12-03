@@ -1,7 +1,5 @@
 package com.wora.ebanking.exception;
 
-import java.util.function.Function;
-
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(String message) {
         super(message);
