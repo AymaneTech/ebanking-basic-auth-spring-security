@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @Accessors(chain = true, fluent = true)
-public class User extends UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;

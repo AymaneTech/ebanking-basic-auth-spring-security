@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "roles")
 
@@ -16,7 +18,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true, fluent = true)
 @NoArgsConstructor
-public class Role {
+public class Role implements Serializable {
     @Id
     @GeneratedValue
     private Long id;

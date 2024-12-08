@@ -2,12 +2,15 @@ package com.wora.ebanking.service;
 
 import com.wora.ebanking.domain.User;
 import com.wora.ebanking.dto.request.ChangePasswordRequestDTO;
+import com.wora.ebanking.dto.request.CreateUserRequestDTO;
 import com.wora.ebanking.dto.request.UpdateUserRequestDTO;
 import com.wora.ebanking.dto.response.UserResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface UserService {
+
+    UserResponseDTO register(CreateUserRequestDTO request);
 
     Page<UserResponseDTO> findAll(Pageable pageable);
 

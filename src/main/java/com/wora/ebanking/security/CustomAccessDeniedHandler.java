@@ -12,7 +12,6 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @Component
 @Slf4j
@@ -25,7 +24,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.FORBIDDEN.value(),
-                LocalDateTime.now(),
                 "You do not have permission to access this resource",
                 request.getRequestURI(),
                 exception.getMessage()

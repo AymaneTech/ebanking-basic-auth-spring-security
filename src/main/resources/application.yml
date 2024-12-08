@@ -14,6 +14,7 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
 
 
+
 app:
   open-api:
     server:
@@ -34,3 +35,6 @@ app:
         name: Aymane El Maini
         email: elmainiaymane03@gmail.com
         url: https://aymaneelmaini.vercel.app
+logging:
+  level:
+    org.springframework.security: trace

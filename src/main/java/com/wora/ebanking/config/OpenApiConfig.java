@@ -19,7 +19,6 @@ public class OpenApiConfig {
         Server server = new Server();
         server.setUrl(props.server().url());
         server.setDescription(props.server().description());
-
         Contact contact = new Contact();
         contact.setName(props.info().contact().name());
         contact.setEmail(props.info().contact().email());

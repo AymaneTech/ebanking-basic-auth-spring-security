@@ -1,7 +1,9 @@
 package com.wora.ebanking.service;
 
+import com.wora.ebanking.domain.Role;
 import com.wora.ebanking.domain.User;
 import com.wora.ebanking.dto.request.ChangePasswordRequestDTO;
+import com.wora.ebanking.dto.request.CreateUserRequestDTO;
 import com.wora.ebanking.dto.request.UpdateUserRequestDTO;
 import com.wora.ebanking.dto.response.UserResponseDTO;
 import com.wora.ebanking.exception.EntityNotFoundException;
@@ -16,16 +18,27 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 class DefaultUserService implements UserService {
+    private static final String DEFAULT_ROLE = "ROLE_USER";
+
     private final UserRepository repository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper mapper;
 
-    // TODO: still need to add registration method here
+    public UserResponseDTO register(CreateUserRequestDTO request) {
+        final Role role = roleService.findEntityByName(DEFAULT_ROLE);
+        final User user = mapper.toEntity(request)
+                .password(passwordEncoder.encode(request.password()))
+                .role(role);
+
+        return mapper.toResponseDTO(user);
+    }
 
     public Page<UserResponseDTO> findAll(Pageable pageable) {
         return repository.findAll(pageable)
@@ -40,11 +53,6 @@ class DefaultUserService implements UserService {
     public UserResponseDTO findByUsername(String username) {
         return repository.findByUsername(username)
                 .map(mapper::toResponseDTO)
-                .orElseThrow(() -> EntityNotFoundException.byUsername(username));
-    }
-
-    public User findEntityByUsername(String username) {
-        return repository.findByUsername(username)
                 .orElseThrow(() -> EntityNotFoundException.byUsername(username));
     }
 
@@ -66,10 +74,22 @@ class DefaultUserService implements UserService {
         user.password(passwordEncoder.encode(request.newPassword()));
     }
 
+    public void changeRole(String username, String name) {
+        final User user = findEntityByUsername(username);
+        final Role role = roleService.findEntityByName(name);
+
+        user.role(role);
+    }
+
     public void delete(String username) {
         User user = repository.findByUsername(username)
                 .orElseThrow(() -> EntityNotFoundException.byUsername(username));
 
         repository.delete(user);
+    }
+
+    public User findEntityByUsername(String username) {
+        return repository.findByUsername(username)
+                .orElseThrow(() -> EntityNotFoundException.byUsername(username));
     }
 }

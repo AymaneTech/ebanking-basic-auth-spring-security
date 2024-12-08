@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.stream.Stream;
 
 @Component
-public class RoleSeeder {
+public class DatabaseInitializer {
 
     @Bean
     CommandLineRunner createRoles(RoleRepository repository) {
