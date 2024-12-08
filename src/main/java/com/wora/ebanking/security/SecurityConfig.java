@@ -29,7 +29,9 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/swagger-resources/**",
             "/webjars/**",
-            "/api/auth/register"
+            "/api/auth/register",
+            "/api/v1/notices",
+            "/api/v1/contact"
     };
 
     private final CustomAccessDeniedHandler accessDeniedHandler;
@@ -42,7 +44,8 @@ public class SecurityConfig {
                 .httpBasic(withDefaults())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(WHITE_LIST).permitAll()
-                        .anyRequest().hasRole("ADMIN")
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+                        .anyRequest().hasRole("USER")
                 )
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(accessDeniedHandler))
