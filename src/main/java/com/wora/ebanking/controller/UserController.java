@@ -5,7 +5,6 @@ import com.wora.ebanking.dto.response.UserResponseDTO;
 import com.wora.ebanking.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.internal.constraintvalidators.bv.size.SizeValidatorForArray;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -27,9 +26,8 @@ public class UserController {
     }
 
     @GetMapping("users")
-    public ResponseEntity<Page<UserResponseDTO>> findAll(@RequestParam(defaultValue = "0") int pageNum,
-                                                         @RequestParam(defaultValue = "10") int pageSize) {
-        Page<UserResponseDTO> users = service.findAll(PageRequest.of(pageNum, pageSize));
+    public ResponseEntity<List<UserResponseDTO>> findAll() {
+        List<UserResponseDTO> users = service.findAll();
         return ResponseEntity.ok(users);
     }
 

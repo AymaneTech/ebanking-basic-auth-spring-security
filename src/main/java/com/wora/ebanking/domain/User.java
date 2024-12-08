@@ -1,8 +1,7 @@
 package com.wora.ebanking.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,13 +17,15 @@ import java.util.List;
 
 @Getter
 @Setter
-@Accessors(chain = true, fluent = true)
+@ToString
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
-
-    private String username;
 
     private String email;
 
@@ -49,6 +50,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(role.getName()));
     }
 }

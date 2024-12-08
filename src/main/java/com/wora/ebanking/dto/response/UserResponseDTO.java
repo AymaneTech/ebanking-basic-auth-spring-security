@@ -8,5 +8,5 @@ public record UserResponseDTO(@NotNull Long id,
                               @NotBlank String firstName,
                               @NotBlank String lastName,
                               @NotNull RoleResponseDTO role
-                              ) {
+) {
 }
